@@ -1,0 +1,20 @@
+<!doctype html>
+<html lang="en">
+<meta charset="utf-8">
+<title>Voice handoff browser checks</title>
+<body>
+<h1>Local audio and WebRTC checks</h1>
+<p>This test plays calibration tones. It does not access the microphone.</p>
+<button id="start-check">Start check</button>
+<pre id="result">Ready. Browser evidence has not been collected.</pre>
+<script type="module">
+import {runBrowserChecks} from './browser-harness.js';
+window.qaResult={done:false,ok:false,checks:[]};
+document.querySelector('#start-check').addEventListener('click',async event=>{
+  event.currentTarget.disabled=true;
+  window.qaResult=await runBrowserChecks();
+  document.querySelector('#result').textContent=JSON.stringify(window.qaResult,null,2);
+});
+</script>
+</body>
+</html>

@@ -1,0 +1,10 @@
+{
+  "name": "realtime-voice-handoff",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "Local WebRTC audio interruption and state handoff lab",
+  "scripts": {"test": "node --test tests/*.test.js", "demo": "node examples/demo.js"},
+  "engines": {"node": ">=22"},
+  "license": "MIT"
+}

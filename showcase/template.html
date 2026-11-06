@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="en">
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#ebebeb"><title>Voice handoff | Local WebRTC lab</title><link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='16' fill='%23ff611a'/%3E%3Cpath d='M14 24v16m9-24v32m9-38v44m9-38v32m9-24v16' stroke='%23262626' stroke-width='4'/%3E%3C/svg%3E"><style>/*__STYLE__*/</style></head>
+<body>
+<a class="skip" href="#instrument">Skip to instrument</a>
+<header class="site-header"><a class="brand" href="#" aria-label="Voice handoff home"><svg viewBox="0 0 44 44" aria-hidden="true"><circle cx="22" cy="22" r="22"/><path d="M12 18v8m7-15v22m7-18v14m7-10v6"/></svg></a><p>Local audio.<br>One owner at a time.</p><button id="motion-toggle" aria-pressed="false" aria-label="Pause decorative motion" title="Pause decorative motion">Ⅱ</button></header>
+<main>
+<section class="hero" aria-labelledby="hero-title">
+<h1 id="hero-title"><span>voice</span><span>engineering</span></h1>
+<div class="instrument-anchor"><section id="instrument" aria-label="Local WebRTC voice handoff instrument" tabindex="-1">
+<div class="inner-base">
+<div class="speaker" aria-hidden="true"></div>
+<button class="power tile" id="power" aria-label="Connect local WebRTC"><span class="power-cap">⏻</span><span class="power-label">Connect</span><i class="led"></i></button>
+<button class="close-key tile" id="close-session" disabled><span class="mini-cap">×</span><span>Close</span></button>
+<div class="screen" id="screen" role="region" aria-label="Live transport display"><pre id="screen-text">VOICE HANDOFF v1
+LOCAL WEBRTC LAB
+
+Press Connect.</pre><canvas id="waveform" width="432" height="200" aria-label="Actual output PCM waveform" hidden></canvas><span id="screen-caption"></span></div>
+<div class="knob tile knob-volume"><label for="volume">Volume</label><span class="knob-cap"><i></i></span><input id="volume" type="range" min="0" max="100" step="1" value="70" aria-label="Output volume"><output for="volume">70%</output></div>
+<div class="knob tile knob-scale"><label for="view-scale">Scale</label><span class="knob-cap"><i></i></span><input id="view-scale" type="range" min="1" max="10" step="1" value="2" aria-label="Waveform scale"><output for="view-scale">2x</output></div>
+<div class="knob tile knob-window"><label for="window-size">Window</label><span class="knob-cap"><i></i></span><input id="window-size" type="range" min="1" max="10" step="1" value="5" aria-label="Event window size"><output for="window-size">5</output></div>
+<div class="knob tile knob-event"><label for="event-index">Event</label><span class="knob-cap"><i></i></span><input id="event-index" type="range" min="0" max="0" step="1" value="0" aria-label="Selected real event"><output for="event-index">None</output></div>
+<div class="machine-brand tile"><strong>WW.</strong><span>local voice<br>engineering</span><i></i></div>
+<div class="status-plate tile"><span id="owner-label">No owner</span><small id="state-label">Disconnected</small></div>
+<div class="screen-tabs" role="group" aria-label="Display mode"><button class="tile" data-view="transport" aria-pressed="true">I/O</button><button class="tile" data-view="pcm" aria-pressed="false">PCM</button><button class="tile" data-view="snapshot" aria-pressed="false">ACK</button><button class="tile" data-view="events" aria-pressed="false">LOG</button></div>
+<div class="info-keys"><button class="tile" data-inspect="session">Session</button><button class="tile" data-inspect="identity">Owner</button><button class="tile" data-inspect="epoch">Epoch</button><button class="tile" data-inspect="pair">ICE</button><button class="tile" data-inspect="inbound">RTP</button><button class="tile" data-inspect="errors">Errors</button><button class="tile" data-inspect="audio">Source</button><button class="tile" data-inspect="snapshot">Digest</button></div>
+<div class="action-keys">
+<button class="tile pale" id="play-tone" disabled><span class="key-cap">▶</span><span>Play</span></button>
+<button class="tile pale" id="interrupt" disabled><span class="key-cap">■</span><span>Interrupt</span></button>
+<button class="tile pale" id="handoff" disabled><span class="key-cap">⇄</span><span>Handoff</span></button>
+<button class="tile pale" id="history-open"><span class="key-cap">T</span><span>Context</span></button>
+<button class="tile pale" id="wav-open"><span class="key-cap">↥</span><span>WAV</span></button>
+<button class="tile pale" id="source-tone"><span class="key-cap">∿</span><span>Tone</span></button>
+<button class="tile pale" data-view="transport"><span class="key-cap">⇌</span><span>Transport</span></button>
+<button class="tile pale" data-view="pcm"><span class="key-cap">∿</span><span>Wave</span></button>
+<button class="tile pale" data-view="snapshot"><span class="key-cap">≡</span><span>Snapshot</span></button>
+<button class="tile pale" data-view="events"><span class="key-cap">⌁</span><span>Trace</span></button>
+<button class="tile pale" id="contract-open"><span class="key-cap">?</span><span>Contract</span></button>
+<button class="tile pale" id="download-trace"><span class="key-cap">↓</span><span>Export</span></button>
+<button class="tile pale desktop-key" data-filter="audio"><span class="key-cap">A</span><span>Audio</span></button>
+<button class="tile pale desktop-key" data-filter="ack"><span class="key-cap">K</span><span>ACK</span></button>
+<button class="tile pale desktop-key" data-filter="snapshot"><span class="key-cap">S</span><span>Snapshot</span></button>
+<button class="tile pale desktop-key" data-filter="all"><span class="key-cap">◎</span><span>All</span></button>
+</div>
+<div class="side-keys"><button class="tile" data-filter="audio" aria-label="Filter audio events">∿</button><button class="tile" data-filter="ack" aria-label="Filter acknowledgement events">✓</button><button class="tile" data-filter="snapshot" aria-label="Filter snapshot events">≡</button><button class="tile" data-filter="all" aria-label="Show all events">◎</button></div>
+<button class="tile monitor-key" id="monitor-toggle" aria-pressed="true"><span class="mini-cap">●</span><span>Live view</span></button>
+<button class="tile record-key" id="record-toggle" disabled><span class="mini-cap orange">●</span><span>Record input</span></button>
+<div class="trace-ribbon tile" id="trace-ribbon" aria-label="Latest event">No events. Connect starts a local session.</div>
+<div class="bottom-keys"><button class="tile" data-inspect="triage">Triage</button><button class="tile" data-inspect="specialist">Specialist</button><button class="tile" data-inspect="mix">Mix</button><button class="tile" data-inspect="sampleRate">Hz</button><button class="tile" data-inspect="volume">Gain</button><button class="tile" data-inspect="window">Window</button><button class="tile" id="cancel-recording" disabled>Cancel mic</button><button class="tile" id="fullscreen" aria-label="Toggle instrument fullscreen">⤢</button></div>
+</div><span class="edge-brand">voice<br>engineering</span><span class="foot foot-a"></span><span class="foot foot-b"></span>
+</section></div>
+<p class="hero-note">& hand off with context</p><p class="hero-credit">Made by <a href="https://wiktorwojtarowicz.pl">WW</a></p>
+<p id="notice" role="status" aria-live="polite">Local transport. No LLM, STT or TTS.</p>
+</section>
+<section class="evidence" id="evidence"><h2>Hear the signal.<br>Inspect the handoff.</h2><p>Two local WebRTC connections carry real audio. A data channel transfers typed context. Ownership changes only after a matching acknowledgement. Each role plays once per session; reconnect for a new run.</p><p>Procedural tones are calibration signals. Imported WAV and microphone recordings stay in this page. Text is an annotation, never a transcript. No external ICE servers, model, speech service or network peer.</p><div class="evidence-columns"><section><h3>Actual transport</h3><pre id="metrics-output">Connect to collect RTP and PCM measurements.</pre></section><section><h3>Actual events</h3><ol id="event-list"></ol><p id="event-empty">No events yet.</p></section></div><details id="architecture"><summary>Control handoff contract</summary><!--__DIAGRAM__--><h3>Received snapshot</h3><pre id="snapshot-output">No snapshot received.</pre><p>This diagram describes control messages. RTP audio uses separate local peer connections. PCM is measured after gain; it does not prove sound from physical speakers.</p></details></section>
+</main><footer class="site-credit">Made by <a href="https://wiktorwojtarowicz.pl">WW</a></footer>
+<dialog id="context-dialog"><form method="dialog"><button class="dialog-close" aria-label="Close context">×</button><h2>Handoff context</h2><p>Typed text only. This is not speech recognition.</p><label>Message<textarea id="history-text" maxlength="512" rows="4" placeholder="Optional context for the next owner"></textarea></label><label>Topic<select id="topic"><option value="">Not set</option><option value="general">General</option><option value="billing">Billing</option><option value="technical">Technical</option></select></label><label>Reference<input id="reference" maxlength="64" pattern="[A-Za-z0-9][A-Za-z0-9_.-]{0,63}" placeholder="Letters, digits, dot, hyphen or underscore"></label><button class="dialog-done">Save context</button></form></dialog>
+<input id="wav-input" type="file" accept=".wav,audio/wav" hidden>
+<!--__MODULES__-->
+</body></html>

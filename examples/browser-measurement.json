@@ -1,0 +1,693 @@
+{
+  "scope": "Local Chromium loopback and PCM graph; no hardware audibility claim",
+  "startedAt": "2026-11-06T19:42:17.180Z",
+  "elapsedSeconds": 11.31,
+  "checks": [
+    {
+      "name": "real RTP and selected local ICE pairs",
+      "ok": true
+    },
+    {
+      "name": "interruption reaches measured PCM silence with throwing subscriber",
+      "ok": true
+    },
+    {
+      "name": "broken cancellation is detected",
+      "ok": true
+    },
+    {
+      "name": "snapshot and ACK traverse DataChannel before playback",
+      "ok": true
+    },
+    {
+      "name": "specialist audio uses separate track and old role remains muted",
+      "ok": true
+    },
+    {
+      "name": "duplicate and stale ACK do not restart playback",
+      "ok": true
+    },
+    {
+      "name": "close invalidates probes and peers",
+      "ok": true
+    }
+  ],
+  "positive": {
+    "measurement": {
+      "status": "PASS",
+      "reason": "measured_silence",
+      "t0": 0.44266666666666665,
+      "remainingMs": 1726,
+      "stableSilenceMs": 17.333333333333368,
+      "before": [
+        {
+          "startTime": 0.24,
+          "endTime": 0.26,
+          "rms": 0.05293281297777781,
+          "samples": 960
+        },
+        {
+          "startTime": 0.26,
+          "endTime": 0.28,
+          "rms": 0.11191013586901871,
+          "samples": 960
+        },
+        {
+          "startTime": 0.28,
+          "endTime": 0.3,
+          "rms": 0.11410515978121114,
+          "samples": 960
+        },
+        {
+          "startTime": 0.3,
+          "endTime": 0.32,
+          "rms": 0.11243201258875472,
+          "samples": 960
+        },
+        {
+          "startTime": 0.32,
+          "endTime": 0.34,
+          "rms": 0.11428424008762313,
+          "samples": 960
+        },
+        {
+          "startTime": 0.34,
+          "endTime": 0.36,
+          "rms": 0.11295096387258699,
+          "samples": 960
+        },
+        {
+          "startTime": 0.36,
+          "endTime": 0.38,
+          "rms": 0.11316214922315598,
+          "samples": 960
+        },
+        {
+          "startTime": 0.38,
+          "endTime": 0.4,
+          "rms": 0.11393581439718374,
+          "samples": 960
+        },
+        {
+          "startTime": 0.4,
+          "endTime": 0.42,
+          "rms": 0.1122630078431816,
+          "samples": 960
+        },
+        {
+          "startTime": 0.42,
+          "endTime": 0.44,
+          "rms": 0.11419010475267638,
+          "samples": 960
+        }
+      ],
+      "after": [
+        {
+          "startTime": 0.56,
+          "endTime": 0.58,
+          "rms": 0,
+          "samples": 960
+        },
+        {
+          "startTime": 0.58,
+          "endTime": 0.6,
+          "rms": 0,
+          "samples": 960
+        },
+        {
+          "startTime": 0.6,
+          "endTime": 0.62,
+          "rms": 0,
+          "samples": 960
+        },
+        {
+          "startTime": 0.62,
+          "endTime": 0.64,
+          "rms": 0,
+          "samples": 960
+        },
+        {
+          "startTime": 0.64,
+          "endTime": 0.66,
+          "rms": 0,
+          "samples": 960
+        },
+        {
+          "startTime": 0.66,
+          "endTime": 0.68,
+          "rms": 0,
+          "samples": 960
+        },
+        {
+          "startTime": 0.68,
+          "endTime": 0.7,
+          "rms": 0,
+          "samples": 960
+        },
+        {
+          "startTime": 0.7,
+          "endTime": 0.72,
+          "rms": 0,
+          "samples": 960
+        },
+        {
+          "startTime": 0.72,
+          "endTime": 0.74,
+          "rms": 0,
+          "samples": 960
+        },
+        {
+          "startTime": 0.74,
+          "endTime": 0.76,
+          "rms": 0,
+          "samples": 960
+        }
+      ]
+    },
+    "oldTrackSilent": true,
+    "oldTrackWindows": [
+      {
+        "startTime": 0.5613333333333334,
+        "endTime": 0.5813333333333334,
+        "rms": 0,
+        "samples": 960
+      },
+      {
+        "startTime": 0.5813333333333334,
+        "endTime": 0.6013333333333334,
+        "rms": 0,
+        "samples": 960
+      },
+      {
+        "startTime": 0.6013333333333334,
+        "endTime": 0.6213333333333333,
+        "rms": 0,
+        "samples": 960
+      },
+      {
+        "startTime": 0.6213333333333333,
+        "endTime": 0.6413333333333333,
+        "rms": 0,
+        "samples": 960
+      },
+      {
+        "startTime": 0.6413333333333333,
+        "endTime": 0.6613333333333333,
+        "rms": 0,
+        "samples": 960
+      },
+      {
+        "startTime": 0.6613333333333333,
+        "endTime": 0.6813333333333333,
+        "rms": 0,
+        "samples": 960
+      },
+      {
+        "startTime": 0.6813333333333333,
+        "endTime": 0.7013333333333334,
+        "rms": 0,
+        "samples": 960
+      },
+      {
+        "startTime": 0.7013333333333334,
+        "endTime": 0.7213333333333334,
+        "rms": 0,
+        "samples": 960
+      },
+      {
+        "startTime": 0.7213333333333334,
+        "endTime": 0.7413333333333333,
+        "rms": 0,
+        "samples": 960
+      },
+      {
+        "startTime": 0.7413333333333333,
+        "endTime": 0.7613333333333333,
+        "rms": 0,
+        "samples": 960
+      },
+      {
+        "startTime": 0.7613333333333333,
+        "endTime": 0.7813333333333333,
+        "rms": 0,
+        "samples": 960
+      },
+      {
+        "startTime": 0.7813333333333333,
+        "endTime": 0.8013333333333333,
+        "rms": 0,
+        "samples": 960
+      },
+      {
+        "startTime": 0.8013333333333333,
+        "endTime": 0.8213333333333334,
+        "rms": 0,
+        "samples": 960
+      },
+      {
+        "startTime": 0.8213333333333334,
+        "endTime": 0.8413333333333334,
+        "rms": 0,
+        "samples": 960
+      },
+      {
+        "startTime": 0.8413333333333334,
+        "endTime": 0.8613333333333333,
+        "rms": 0,
+        "samples": 960
+      },
+      {
+        "startTime": 0.8613333333333333,
+        "endTime": 0.8813333333333333,
+        "rms": 0,
+        "samples": 960
+      },
+      {
+        "startTime": 0.8813333333333333,
+        "endTime": 0.9013333333333333,
+        "rms": 0,
+        "samples": 960
+      },
+      {
+        "startTime": 0.9013333333333333,
+        "endTime": 0.9213333333333333,
+        "rms": 0,
+        "samples": 960
+      },
+      {
+        "startTime": 0.9213333333333333,
+        "endTime": 0.9413333333333334,
+        "rms": 0,
+        "samples": 960
+      },
+      {
+        "startTime": 0.9413333333333334,
+        "endTime": 0.9613333333333334,
+        "rms": 0,
+        "samples": 960
+      },
+      {
+        "startTime": 0.9613333333333334,
+        "endTime": 0.9813333333333333,
+        "rms": 0,
+        "samples": 960
+      },
+      {
+        "startTime": 0.9813333333333333,
+        "endTime": 1.0013333333333334,
+        "rms": 0,
+        "samples": 960
+      },
+      {
+        "startTime": 1.0013333333333334,
+        "endTime": 1.0213333333333334,
+        "rms": 0,
+        "samples": 960
+      },
+      {
+        "startTime": 1.0213333333333334,
+        "endTime": 1.0413333333333334,
+        "rms": 0,
+        "samples": 960
+      },
+      {
+        "startTime": 1.0413333333333334,
+        "endTime": 1.0613333333333332,
+        "rms": 0,
+        "samples": 960
+      },
+      {
+        "startTime": 1.0613333333333332,
+        "endTime": 1.0813333333333333,
+        "rms": 0,
+        "samples": 960
+      },
+      {
+        "startTime": 1.0813333333333333,
+        "endTime": 1.1013333333333333,
+        "rms": 0,
+        "samples": 960
+      },
+      {
+        "startTime": 1.1013333333333333,
+        "endTime": 1.1213333333333333,
+        "rms": 0,
+        "samples": 960
+      },
+      {
+        "startTime": 1.1213333333333333,
+        "endTime": 1.1413333333333333,
+        "rms": 0,
+        "samples": 960
+      },
+      {
+        "startTime": 1.1413333333333333,
+        "endTime": 1.1613333333333333,
+        "rms": 0,
+        "samples": 960
+      },
+      {
+        "startTime": 1.1613333333333333,
+        "endTime": 1.1813333333333333,
+        "rms": 0,
+        "samples": 960
+      },
+      {
+        "startTime": 1.1813333333333333,
+        "endTime": 1.2013333333333334,
+        "rms": 0,
+        "samples": 960
+      },
+      {
+        "startTime": 1.2013333333333334,
+        "endTime": 1.2213333333333334,
+        "rms": 0,
+        "samples": 960
+      },
+      {
+        "startTime": 1.2213333333333334,
+        "endTime": 1.2413333333333334,
+        "rms": 0,
+        "samples": 960
+      },
+      {
+        "startTime": 1.2413333333333334,
+        "endTime": 1.2613333333333334,
+        "rms": 0,
+        "samples": 960
+      },
+      {
+        "startTime": 1.2613333333333334,
+        "endTime": 1.2813333333333334,
+        "rms": 0,
+        "samples": 960
+      },
+      {
+        "startTime": 1.2813333333333334,
+        "endTime": 1.3013333333333332,
+        "rms": 0,
+        "samples": 960
+      },
+      {
+        "startTime": 1.3013333333333332,
+        "endTime": 1.3213333333333332,
+        "rms": 0,
+        "samples": 960
+      },
+      {
+        "startTime": 1.3213333333333332,
+        "endTime": 1.3413333333333333,
+        "rms": 0,
+        "samples": 960
+      },
+      {
+        "startTime": 1.3413333333333333,
+        "endTime": 1.3613333333333333,
+        "rms": 0,
+        "samples": 960
+      },
+      {
+        "startTime": 1.3613333333333333,
+        "endTime": 1.3813333333333333,
+        "rms": 0,
+        "samples": 960
+      },
+      {
+        "startTime": 1.3813333333333333,
+        "endTime": 1.4013333333333333,
+        "rms": 0,
+        "samples": 960
+      },
+      {
+        "startTime": 1.4013333333333333,
+        "endTime": 1.4213333333333333,
+        "rms": 0,
+        "samples": 960
+      },
+      {
+        "startTime": 1.4213333333333333,
+        "endTime": 1.4413333333333334,
+        "rms": 0,
+        "samples": 960
+      },
+      {
+        "startTime": 1.4413333333333334,
+        "endTime": 1.4613333333333334,
+        "rms": 0,
+        "samples": 960
+      },
+      {
+        "startTime": 1.4613333333333334,
+        "endTime": 1.4813333333333334,
+        "rms": 0,
+        "samples": 960
+      },
+      {
+        "startTime": 1.4813333333333334,
+        "endTime": 1.5013333333333334,
+        "rms": 0,
+        "samples": 960
+      },
+      {
+        "startTime": 1.5013333333333334,
+        "endTime": 1.5213333333333334,
+        "rms": 0,
+        "samples": 960
+      },
+      {
+        "startTime": 1.5213333333333334,
+        "endTime": 1.5413333333333334,
+        "rms": 0,
+        "samples": 960
+      }
+    ],
+    "transport": {
+      "T": {
+        "connectionState": "connected",
+        "channelState": "open",
+        "selectedPair": {
+          "id": "CPQd3myizK_MdhF39pB",
+          "state": "succeeded",
+          "nominated": true,
+          "localType": "host",
+          "remoteType": "host",
+          "protocol": "udp",
+          "localCandidateId": "IQd3myizK",
+          "remoteCandidateId": "IMdhF39pB"
+        },
+        "inbound": {
+          "bytesReceived": 1138,
+          "packetsReceived": 15,
+          "totalAudioEnergy": 0
+        },
+        "complete": true
+      },
+      "S": {
+        "connectionState": "connected",
+        "channelState": "open",
+        "selectedPair": {
+          "id": "CPiE2rpnHD_SxmHELkb",
+          "state": "succeeded",
+          "nominated": true,
+          "localType": "host",
+          "remoteType": "host",
+          "protocol": "udp",
+          "localCandidateId": "IiE2rpnHD",
+          "remoteCandidateId": "ISxmHELkb"
+        },
+        "inbound": {
+          "bytesReceived": 0,
+          "packetsReceived": 0,
+          "totalAudioEnergy": 0
+        },
+        "complete": true
+      }
+    }
+  },
+  "negative": {
+    "measurement": {
+      "status": "FAIL",
+      "reason": "audio_still_present",
+      "t0": 0.304,
+      "remainingMs": 1748,
+      "stableSilenceMs": null,
+      "before": [
+        {
+          "startTime": 0.08533333333333333,
+          "endTime": 0.10533333333333333,
+          "rms": 0.0694227326136916,
+          "samples": 960
+        },
+        {
+          "startTime": 0.10533333333333333,
+          "endTime": 0.12533333333333332,
+          "rms": 0.11217252241256252,
+          "samples": 960
+        },
+        {
+          "startTime": 0.12533333333333332,
+          "endTime": 0.14533333333333334,
+          "rms": 0.11405918340070859,
+          "samples": 960
+        },
+        {
+          "startTime": 0.14533333333333334,
+          "endTime": 0.16533333333333333,
+          "rms": 0.11336007379841212,
+          "samples": 960
+        },
+        {
+          "startTime": 0.16533333333333333,
+          "endTime": 0.18533333333333332,
+          "rms": 0.11284273931799324,
+          "samples": 960
+        },
+        {
+          "startTime": 0.18533333333333332,
+          "endTime": 0.20533333333333334,
+          "rms": 0.11428494577816847,
+          "samples": 960
+        },
+        {
+          "startTime": 0.20533333333333334,
+          "endTime": 0.22533333333333333,
+          "rms": 0.11247357438966263,
+          "samples": 960
+        },
+        {
+          "startTime": 0.22533333333333333,
+          "endTime": 0.24533333333333332,
+          "rms": 0.11394826763851462,
+          "samples": 960
+        },
+        {
+          "startTime": 0.24533333333333332,
+          "endTime": 0.2653333333333333,
+          "rms": 0.1131288998308534,
+          "samples": 960
+        },
+        {
+          "startTime": 0.2653333333333333,
+          "endTime": 0.2853333333333333,
+          "rms": 0.11272969631499215,
+          "samples": 960
+        }
+      ],
+      "after": [
+        {
+          "startTime": 0.4053333333333333,
+          "endTime": 0.42533333333333334,
+          "rms": 0.11250077726946524,
+          "samples": 960
+        },
+        {
+          "startTime": 0.42533333333333334,
+          "endTime": 0.44533333333333336,
+          "rms": 0.11380216330247958,
+          "samples": 960
+        },
+        {
+          "startTime": 0.44533333333333336,
+          "endTime": 0.4653333333333333,
+          "rms": 0.11335418212646023,
+          "samples": 960
+        },
+        {
+          "startTime": 0.4653333333333333,
+          "endTime": 0.48533333333333334,
+          "rms": 0.11290813916090219,
+          "samples": 960
+        },
+        {
+          "startTime": 0.48533333333333334,
+          "endTime": 0.5053333333333333,
+          "rms": 0.11381879660718647,
+          "samples": 960
+        },
+        {
+          "startTime": 0.5053333333333333,
+          "endTime": 0.5253333333333333,
+          "rms": 0.11199652308306247,
+          "samples": 960
+        },
+        {
+          "startTime": 0.5253333333333333,
+          "endTime": 0.5453333333333333,
+          "rms": 0.11403395886039082,
+          "samples": 960
+        },
+        {
+          "startTime": 0.5453333333333333,
+          "endTime": 0.5653333333333334,
+          "rms": 0.11285066582739345,
+          "samples": 960
+        },
+        {
+          "startTime": 0.5653333333333334,
+          "endTime": 0.5853333333333334,
+          "rms": 0.11313047328415099,
+          "samples": 960
+        },
+        {
+          "startTime": 0.5853333333333334,
+          "endTime": 0.6053333333333333,
+          "rms": 0.11443868347351514,
+          "samples": 960
+        }
+      ]
+    },
+    "oldTrackSilent": false
+  },
+  "handoff": {
+    "beforePlaySpecialistRms": 0,
+    "specialistRms": 0.141390737276044,
+    "triageRms": 0,
+    "duplicateSeen": true,
+    "staleSeen": true,
+    "immutableHistory": true,
+    "transport": {
+      "T": {
+        "connectionState": "connected",
+        "channelState": "open",
+        "selectedPair": {
+          "id": "CPEfYr6hYA_t5+/j013",
+          "state": "succeeded",
+          "nominated": true,
+          "localType": "host",
+          "remoteType": "host",
+          "protocol": "udp",
+          "localCandidateId": "IEfYr6hYA",
+          "remoteCandidateId": "It5+/j013"
+        },
+        "inbound": {
+          "bytesReceived": 1060,
+          "packetsReceived": 14,
+          "totalAudioEnergy": 0
+        },
+        "complete": true
+      },
+      "S": {
+        "connectionState": "connected",
+        "channelState": "open",
+        "selectedPair": {
+          "id": "CPMiL7Y+sm_njZ5j4/4",
+          "state": "succeeded",
+          "nominated": true,
+          "localType": "host",
+          "remoteType": "host",
+          "protocol": "udp",
+          "localCandidateId": "IMiL7Y+sm",
+          "remoteCandidateId": "InjZ5j4/4"
+        },
+        "inbound": {
+          "bytesReceived": 845,
+          "packetsReceived": 13,
+          "totalAudioEnergy": 0
+        },
+        "complete": true
+      }
+    }
+  },
+  "pageErrors": [],
+  "externalRequests": []
+}

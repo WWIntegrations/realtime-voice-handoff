@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 992 248" width="992" height="248" role="img" aria-labelledby="t d">
+<title id="t">State acknowledged before new audio</title><desc id="d">This is a control-flow diagram, not the RTP topology. The caller freezes one snapshot and sends it over the local specialist RTCDataChannel. The specialist validates it and returns an ACK. The coordinator accepts only a matching session, handoff, epoch and digest before its deadline. Only then may the user start the separate specialist audio track. The cancelled triage receiver stays muted. Both peers run in one browser; no remote service or language model is used.</desc>
+<style>:root{--tlo:#EBEBEB;--tekst:#262626;--linia:#555555;--strefa:#666666;--wezel:#FFFFFF;--wezel-tekst:#262626;--akcent:#262626;}text{font-family:system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;fill:var(--tekst)}.n{font-size:13px;font-weight:600;fill:var(--wezel-tekst)}.p{font-size:11px;fill:var(--wezel-tekst)}.s{font-size:12px;fill:var(--strefa)}.tt{font-size:16px;font-weight:700}.wz{fill:var(--wezel);stroke:var(--linia);stroke-width:1.5}.bram{stroke:var(--akcent);stroke-width:3}.mod{stroke-dasharray:0}.st{fill:none;stroke:var(--strefa);stroke-width:1.5;stroke-dasharray:6 4}.kr{stroke:var(--linia);stroke-width:1.5;fill:none}.gr{stroke:var(--akcent);stroke-width:2.5}.gt{fill:var(--akcent)}</style>
+<rect width="992" height="248" fill="#EBEBEB"/>
+<text class="tt" x="40" y="32">State acknowledged before new audio</text>
+<g><rect class="st" x="16" y="72" width="464" height="160" rx="6"/><text class="s" x="26" y="88">State transfer</text></g>
+<g><rect class="st" x="512" y="72" width="464" height="160" rx="6"/><text class="s" x="522" y="88">Coordinator permits playback</text></g>
+<path class="kr" d="M208 152H280"/><path class="gt" d="M288 152l-9 -5v10z"/>
+<path class="kr" d="M456 152H528"/><path class="gt" d="M536 152l-9 -5v10z"/>
+<path class="gr" d="M496 102V202"/>
+<path class="kr" d="M704 152H776"/><path class="gt" d="M784 152l-9 -5v10z"/>
+<g data-id="snapshot" data-typ="klient"><rect class="wz" x="40" y="116" width="168" height="72" rx="8"/>
+<text class="n" x="124" y="144" text-anchor="middle">Snapshot</text>
+<text class="p" x="124" y="178" text-anchor="middle">Frozen conversation state</text></g>
+<g data-id="channel" data-typ="usluga"><rect class="wz" x="288" y="116" width="168" height="72" rx="8"/>
+<text class="n" x="372" y="144" text-anchor="middle">DataChannel</text>
+<text class="p" x="372" y="178" text-anchor="middle">Actual send and receive</text></g>
+<g data-id="ack" data-typ="bramka"><rect class="wz bram" x="536" y="116" width="168" height="72" rx="8"/>
+<text class="n" x="620" y="144" text-anchor="middle">ACK check</text>
+<text class="p" x="620" y="178" text-anchor="middle">Epoch, digest, deadline</text></g>
+<g data-id="audio" data-typ="usluga"><rect class="wz" x="784" y="116" width="168" height="72" rx="8"/>
+<text class="n" x="868" y="144" text-anchor="middle">New audio</text>
+<text class="p" x="868" y="178" text-anchor="middle">Separate specialist track</text></g>
+</svg>

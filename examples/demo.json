@@ -1,0 +1,236 @@
+{
+  "schema_version": 1,
+  "evidence_scope": "deterministic controller and encoded protocol only",
+  "transport": "in_memory_test",
+  "audio_executed": false,
+  "steps": [
+    {
+      "id": "connected-controller",
+      "state": {
+        "state": "active_triage",
+        "owner": "triage",
+        "session_id": "1234567890abcdef1234567890abcdef",
+        "epoch": 0,
+        "turn_id": 0,
+        "pending": null,
+        "playback": "silent",
+        "lastError": null,
+        "played": {
+          "triage": false,
+          "specialist": false
+        },
+        "cancelled": {
+          "triage": false,
+          "specialist": false
+        }
+      }
+    },
+    {
+      "id": "play-requested",
+      "state": {
+        "state": "active_triage",
+        "owner": "triage",
+        "session_id": "1234567890abcdef1234567890abcdef",
+        "epoch": 0,
+        "turn_id": 1,
+        "pending": null,
+        "playback": "speaking",
+        "lastError": null,
+        "played": {
+          "triage": true,
+          "specialist": false
+        },
+        "cancelled": {
+          "triage": false,
+          "specialist": false
+        }
+      }
+    },
+    {
+      "id": "interrupted-controller",
+      "state": {
+        "state": "active_triage",
+        "owner": "triage",
+        "session_id": "1234567890abcdef1234567890abcdef",
+        "epoch": 1,
+        "turn_id": 1,
+        "pending": null,
+        "playback": "silent",
+        "lastError": null,
+        "played": {
+          "triage": true,
+          "specialist": false
+        },
+        "cancelled": {
+          "triage": true,
+          "specialist": false
+        }
+      }
+    },
+    {
+      "id": "snapshot-encoded",
+      "state": {
+        "state": "awaiting_ack",
+        "owner": null,
+        "session_id": "1234567890abcdef1234567890abcdef",
+        "epoch": 2,
+        "turn_id": 1,
+        "pending": {
+          "session_id": "1234567890abcdef1234567890abcdef",
+          "handoff_id": "handoff-2",
+          "epoch": 2,
+          "snapshot_digest": "396bc61d3e91771da30b822bef9ba33ce6801a5ec8db45937119f490534c7648",
+          "deadline": 2350,
+          "payload": {
+            "epoch": 2,
+            "from": "triage",
+            "handoff_id": "handoff-2",
+            "history": [
+              {
+                "completion": "complete",
+                "id": "user-1",
+                "role": "user",
+                "source": "fixture",
+                "text": "Transfer this local example."
+              }
+            ],
+            "interrupted_audio": null,
+            "owner": "triage",
+            "reason": "scripted_scenario",
+            "session_id": "1234567890abcdef1234567890abcdef",
+            "slots": {
+              "reference": "example-1",
+              "topic": "technical"
+            },
+            "to": "specialist",
+            "turn_id": 1
+          }
+        },
+        "playback": "silent",
+        "lastError": null,
+        "played": {
+          "triage": true,
+          "specialist": false
+        },
+        "cancelled": {
+          "triage": true,
+          "specialist": false
+        }
+      }
+    },
+    {
+      "id": "snapshot-validated",
+      "state": {
+        "state": "awaiting_ack",
+        "owner": null,
+        "session_id": "1234567890abcdef1234567890abcdef",
+        "epoch": 2,
+        "turn_id": 1,
+        "pending": {
+          "session_id": "1234567890abcdef1234567890abcdef",
+          "handoff_id": "handoff-2",
+          "epoch": 2,
+          "snapshot_digest": "396bc61d3e91771da30b822bef9ba33ce6801a5ec8db45937119f490534c7648",
+          "deadline": 2350,
+          "payload": {
+            "epoch": 2,
+            "from": "triage",
+            "handoff_id": "handoff-2",
+            "history": [
+              {
+                "completion": "complete",
+                "id": "user-1",
+                "role": "user",
+                "source": "fixture",
+                "text": "Transfer this local example."
+              }
+            ],
+            "interrupted_audio": null,
+            "owner": "triage",
+            "reason": "scripted_scenario",
+            "session_id": "1234567890abcdef1234567890abcdef",
+            "slots": {
+              "reference": "example-1",
+              "topic": "technical"
+            },
+            "to": "specialist",
+            "turn_id": 1
+          }
+        },
+        "playback": "silent",
+        "lastError": null,
+        "played": {
+          "triage": true,
+          "specialist": false
+        },
+        "cancelled": {
+          "triage": true,
+          "specialist": false
+        }
+      }
+    },
+    {
+      "id": "ack-accepted",
+      "state": {
+        "state": "active_specialist",
+        "owner": "specialist",
+        "session_id": "1234567890abcdef1234567890abcdef",
+        "epoch": 2,
+        "turn_id": 1,
+        "pending": null,
+        "playback": "silent",
+        "lastError": null,
+        "played": {
+          "triage": true,
+          "specialist": false
+        },
+        "cancelled": {
+          "triage": true,
+          "specialist": false
+        }
+      }
+    },
+    {
+      "id": "specialist-play-requested",
+      "state": {
+        "state": "active_specialist",
+        "owner": "specialist",
+        "session_id": "1234567890abcdef1234567890abcdef",
+        "epoch": 2,
+        "turn_id": 2,
+        "pending": null,
+        "playback": "speaking",
+        "lastError": null,
+        "played": {
+          "triage": true,
+          "specialist": true
+        },
+        "cancelled": {
+          "triage": true,
+          "specialist": false
+        }
+      }
+    },
+    {
+      "id": "closed",
+      "state": {
+        "state": "closed",
+        "owner": null,
+        "session_id": "1234567890abcdef1234567890abcdef",
+        "epoch": 3,
+        "turn_id": 2,
+        "pending": null,
+        "playback": "silent",
+        "lastError": null,
+        "played": {
+          "triage": true,
+          "specialist": true
+        },
+        "cancelled": {
+          "triage": true,
+          "specialist": true
+        }
+      }
+    }
+  ]
+}
