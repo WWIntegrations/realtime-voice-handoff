@@ -1,0 +1,8 @@
+{
+  "reason": "user_requested",
+  "history": [
+    {"id": "m1", "role": "user", "text": "My invoice shows the wrong amount.", "source": "typed", "completion": "complete"},
+    {"id": "m2", "role": "triage", "text": "I will pass this to billing.", "source": "fixture", "completion": "interrupted"}
+  ],
+  "slots": {"topic": "billing", "reference": "invoice-2041"}
+}

@@ -1,13 +1,32 @@
 # Realtime Voice Handoff
 
-A local lab for interrupting actual audio and transferring conversation state
-over WebRTC. A caller moves from a scripted triage role to a specialist role.
-The old audio path stays muted, the state crosses a data channel, and the
-specialist can play only after a matching acknowledgement.
+Use it when you need to cut off real audio and hand conversation state to another role over WebRTC, and want the handoff proven by a matching acknowledgement before the new role may speak. A caller moves from a scripted triage role to a specialist role. The old audio path stays muted, the state crosses a data channel, and the specialist can play only after a matching acknowledgement.
 
-This is an audio transport and control project. It does not transcribe speech,
-understand an utterance, call a language model, or synthesize a reply. The two
-roles are deterministic local programs, not voice AI providers.
+## Quickstart
+
+Needs Node 22+. No install step: there are no dependencies.
+
+```sh
+npm test
+node examples/demo.js
+node examples/demo.js --input examples/handoff.json
+```
+
+The last command runs your own handoff request (a JSON file with `reason`, `history` and `slots`; copy `examples/handoff.json` and edit it) through the real controller and wire protocol. Real output:
+
+```text
+realtime-voice-handoff controller demo: PASS (5 of 5 checks)
+  ok   triage audio interrupted and its path cancelled
+  ok   specialist blocked until the ACK matched
+  ok   matching ACK accepted, specialist became the owner
+  ok   specialist played after the ACK
+  ok   session closed with both paths cancelled
+handoff handoff-2: reason user_requested, 2 message(s), topic billing, digest ade5e84ebcd575c8...
+scope: deterministic controller and encoded protocol only; no audio was executed (use the browser lab for that)
+Full trace: node examples/demo.js --json
+```
+
+Add `--json` for the full machine-readable trace. Invalid input exits 2 with a one-line message. No network access is used. To hear real audio, start the browser lab (see Browser lab below).
 
 ## Animated demo
 
@@ -27,19 +46,15 @@ differ from the reference. This is not a certified pixel-identical reproduction.
 
 ![State-transfer control flow](docs/architecture.svg)
 
-## Start
+## Browser lab
 
-Requires Node 22+ for unit tests, Python 3.11+ to serve the checkout, and a
-browser with WebRTC, Web Audio, AudioWorklet, and Web Crypto. No runtime
-dependencies, installation, API keys, or external services are needed.
+Needs Python 3.11+ to serve the checkout and a browser with WebRTC, Web Audio, AudioWorklet, and Web Crypto. No API keys or external services.
 
 ```sh
-npm test
-node examples/demo.js
 python3 tools/serve.py --port 3405
 ```
 
-Open `http://127.0.0.1:3405/docs/index.html`, then use Connect to enable audio.
+(The server runs until you press Ctrl-C.) Open `http://127.0.0.1:3405/docs/index.html`, then use Connect to enable audio.
 Calibration tones are available immediately. A local PCM WAV or an optional
 microphone recording can be selected before playback. Recordings remain in
 memory; no microphone permission is requested until the user chooses Record.
@@ -132,6 +147,11 @@ trace. Neither the trace nor automated PCM analysis proves that a person heard
 sound through physical speakers or that a physical microphone worked.
 
 ## Limits
+
+This is an audio transport and control project. It does not transcribe speech,
+understand an utterance, call a language model, or synthesize a reply. The two
+roles are deterministic local programs, not voice AI providers. The Quickstart
+demo exercises the controller and wire protocol only; it executes no audio.
 
 This is a single-browser loopback, not a production multi-device service or
 NAT traversal test. SHA256 checks snapshot consistency; it does not authenticate
