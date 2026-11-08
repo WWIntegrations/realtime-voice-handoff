@@ -54,6 +54,17 @@ export async function runDemo(request = DEFAULT_REQUEST) {
         protocol.dispose();
     }
 }
+export function safe(value) {
+    // Escape control and format characters (ESC, CR, LF, bidi) before printing input data.
+    return Array.from(String(value), ch => {
+        if (!/\p{C}/u.test(ch))
+            return ch;
+        const code = ch.codePointAt(0);
+        return code < 0x100 ? '\\x' + code.toString(16).padStart(2, '0')
+            : code < 0x10000 ? '\\u' + code.toString(16).padStart(4, '0')
+                : '\\U' + code.toString(16).padStart(8, '0');
+    }).join('');
+}
 export function summarize(trace) {
     const by = Object.fromEntries(trace.steps.map(step => [step.id, step.state]));
     const checks = [
@@ -68,8 +79,8 @@ export function summarize(trace) {
     const lines = [`realtime-voice-handoff controller demo: ${passed ? 'PASS' : 'FAIL'} (${checks.filter(check => check[1]).length} of ${checks.length} checks)`];
     for (const [name, ok] of checks)
         lines.push(`  ${ok ? 'ok  ' : 'FAIL'} ${name}`);
-    lines.push(`handoff ${pending.handoff_id}: reason ${pending.payload.reason}, ${pending.payload.history.length} message(s), topic ${pending.payload.slots.topic}, digest ${pending.snapshot_digest.slice(0, 16)}...`);
-    lines.push(`scope: ${trace.evidence_scope}; no audio was executed (use the browser lab for that)`);
+    lines.push(`handoff ${safe(pending.handoff_id)}: reason ${safe(pending.payload.reason)}, ${pending.payload.history.length} message(s), topic ${safe(pending.payload.slots.topic)}, digest ${safe(pending.snapshot_digest.slice(0, 16))}...`);
+    lines.push(`scope: ${safe(trace.evidence_scope)}; no audio was executed (use the browser lab for that)`);
     lines.push('Full trace: node examples/demo.js --json');
     return { passed, text: lines.join('\n') };
 }

@@ -53,3 +53,17 @@ test('summary reports FAIL when the trace violates the contract', async () => {
     assert.equal(passed, false);
     assert.match(text, /FAIL/);
 });
+
+test('summary escapes terminal control and bidi characters from trace data', async () => {
+    const trace = await runDemo();
+    const evil = '\x1b]8;;http://evil\x1b\\X \u202e\u2066 \r';
+    const pending = trace.steps.find(step => step.id === 'snapshot-encoded').state.pending;
+    pending.handoff_id = evil;
+    pending.payload.reason = evil;
+    pending.payload.slots.topic = evil;
+    trace.evidence_scope = evil;
+    const { text } = summarize(trace);
+    assert.ok(text.includes('\\x1b]8;;http://evil'));
+    assert.ok(text.includes('\\u202e'));
+    assert.doesNotMatch(text.replaceAll('\n', ''), /\p{C}/u);
+});
