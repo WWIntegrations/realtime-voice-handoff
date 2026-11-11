@@ -4,6 +4,7 @@
   <source media="(prefers-color-scheme: dark)" srcset="docs/how-it-works-dark.svg">
   <img src="docs/how-it-works-light.svg" alt="A caller moves from a triage role to a specialist role over WebRTC. The old audio path is muted, the conversation state crosses a data channel, and the specialist may speak only after a matching acknowledgement." width="100%">
 </picture>
+<p align="center"><a href="docs/system-map.md">Full system map: 7 diagrams</a></p>
 
 Use it when you need to cut off real audio and hand conversation state to another role over WebRTC, and want the handoff proven by a matching acknowledgement before the new role may speak. A caller moves from a scripted triage role to a specialist role. The old audio path stays muted, the state crosses a data channel, and the specialist can play only after a matching acknowledgement.
 
