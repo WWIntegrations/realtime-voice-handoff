@@ -2,7 +2,7 @@
 import { VoiceController } from '../src/controller.js';
 import { HandoffProtocol } from '../src/protocol.js';
 import { pathToFileURL } from 'node:url';
-import { readFileSync } from 'node:fs';
+import { closeSync, constants, fstatSync, openSync, readSync } from 'node:fs';
 export const DEFAULT_REQUEST = {
     reason: 'scripted_scenario', history: [
         {
@@ -84,6 +84,31 @@ export function summarize(trace) {
     lines.push('Full trace: node examples/demo.js --json');
     return { passed, text: lines.join('\n') };
 }
+export const INPUT_LIMIT = 64 * 1024;
+class InputError extends Error {
+}
+/** Read --input without following it into a FIFO, device or unbounded file. */
+export function readInput(path) {
+    // O_NONBLOCK keeps the open of a FIFO from waiting for a writer.
+    const fd = openSync(path, constants.O_RDONLY | (constants.O_NONBLOCK ?? 0));
+    try {
+        const info = fstatSync(fd);
+        if (!info.isFile())
+            throw new InputError('cannot read --input: not a regular file');
+        if (info.size > INPUT_LIMIT)
+            throw new InputError('cannot read --input: file is larger than 64 KiB');
+        const buffer = Buffer.alloc(INPUT_LIMIT + 1);
+        let length = 0, count;
+        while (length < buffer.length && (count = readSync(fd, buffer, length, buffer.length - length, null)) > 0)
+            length += count;
+        if (length > INPUT_LIMIT)
+            throw new InputError('cannot read --input: file is larger than 64 KiB');
+        return buffer.toString('utf8', 0, length);
+    }
+    finally {
+        closeSync(fd);
+    }
+}
 function usage() {
     return 'usage: node examples/demo.js [--input handoff.json] [--json]';
 }
@@ -104,10 +129,12 @@ export async function main(argv, write = text => process.stdout.write(text)) {
     try {
         options = parseArgs(argv);
         if (options.input !== null)
-            request = JSON.parse(readFileSync(options.input, 'utf8'));
+            request = JSON.parse(readInput(options.input));
     }
     catch (error) {
-        process.stderr.write(`${error.message.startsWith('usage') ? error.message : 'cannot read --input: expected a JSON file with reason, history and slots'}\n`);
+        const message = error instanceof InputError || error.message.startsWith('usage') ? error.message
+            : 'cannot read --input: expected a JSON file with reason, history and slots';
+        process.stderr.write(`${message}\n`);
         return 2;
     }
     let trace;

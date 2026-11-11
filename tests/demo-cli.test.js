@@ -1,13 +1,13 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { spawnSync } from 'node:child_process';
+import { spawnSync, execFileSync } from 'node:child_process';
 import { readFileSync, writeFileSync, mkdtempSync } from 'node:fs';
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
 import { runDemo, summarize } from '../examples/demo.js';
 
 const root = new URL('..', import.meta.url).pathname;
-const run = (...args) => spawnSync(process.execPath, ['examples/demo.js', ...args], { cwd: root, encoding: 'utf8' });
+const run = (...args) => spawnSync(process.execPath, ['examples/demo.js', ...args], { cwd: root, encoding: 'utf8', timeout: 10000 });
 
 test('default output is a short human summary and can be repeated', () => {
     for (let i = 0; i < 2; i++) {
@@ -43,6 +43,21 @@ test('invalid or unreadable input exits 2 with a readable message and no echo', 
         assert.ok(result.stderr.length > 10);
         assert.doesNotMatch(result.stderr, /SECRET-MARKER/);
         assert.doesNotMatch(result.stderr, /at .*\.js:\d+/);
+    }
+});
+
+test('--input is bounded: oversized files and FIFOs are refused without reading them', () => {
+    const dir = mkdtempSync(join(tmpdir(), 'demo-cli-'));
+    const big = join(dir, 'big.json');
+    writeFileSync(big, '{"reason":"' + 'x'.repeat(1024 * 1024) + '"}');
+    const fifo = join(dir, 'pipe.json');
+    execFileSync('mkfifo', [fifo]);
+    for (const [path, message] of [[big, /larger than 64 KiB/], [fifo, /not a regular file/]]) {
+        const result = run('--input', path);
+        assert.equal(result.signal, null, 'demo must not block on ' + path);
+        assert.equal(result.status, 2);
+        assert.equal(result.stdout, '');
+        assert.match(result.stderr, message);
     }
 });
 
