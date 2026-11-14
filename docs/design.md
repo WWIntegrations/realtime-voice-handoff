@@ -100,7 +100,8 @@ measurement, rather than access to that issue's contents, justified this fix.
 
 Worklets report non-overlapping 20 ms windows with round(sampleRate*0.020)
 samples, RMS, audio timestamps, and a 64-point waveform. In-memory metrics keep
-at most 2000 windows per probe and 256 event summaries. Closed/failed contexts
+at most 2000 windows per probe and 256 event summaries, and the runtime keeps
+the eight most recent imported or recorded clips. Closed/failed contexts
 mark the samples stale. Recording has an independent worklet mode that passes
 silence downstream and stops collecting at 480000 samples.
 
