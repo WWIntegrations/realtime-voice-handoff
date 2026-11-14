@@ -71,11 +71,12 @@ export class VoiceController {
             session_id: s.session_id, handoff_id: `handoff-${s.epoch + 1}`, epoch: s.epoch + 1, turn_id: s.turn_id,
             owner: 'triage', from: 'triage', to: 'specialist', reason: input.reason, history: input.history, slots: input.slots, interrupted_audio: interruptedAudio
         };
-        validatePayload(payload);
-        encodeWire({
-            type: 'handoff_snapshot', schema_version: 1, payload, snapshot_digest: '0'.repeat(64)
-        });
+        // Copy first, then validate the copy: the caller's object may change between reads.
         const saved = copy(payload);
+        validatePayload(saved);
+        encodeWire({
+            type: 'handoff_snapshot', schema_version: 1, payload: saved, snapshot_digest: '0'.repeat(64)
+        });
         s.epoch++;
         s.cancelled.triage = true;
         s.owner = null;
