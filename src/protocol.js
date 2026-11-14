@@ -87,7 +87,9 @@ export class HandoffProtocol {
         const m = validateMessage(decodeWire(bytes));
         if (m.type !== 'interrupt')
             invalid();
-        if (m.session_id !== this.controller.getState().session_id || m.epoch <= this.lastInterruptEpoch)
+        const s = this.controller.getState();
+        // The sender raises the shared epoch before sending, so a larger epoch was never issued.
+        if (m.session_id !== s.session_id || m.epoch <= this.lastInterruptEpoch || m.epoch > s.epoch)
             return false;
         this.lastInterruptEpoch = m.epoch;
         this.onEvent('interrupt_received');

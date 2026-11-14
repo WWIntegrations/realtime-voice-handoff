@@ -38,8 +38,9 @@ content is invalid. An interruption while awaiting ACK fails the transaction.
 
 control-triage-v1 carries interrupt messages. The local sender and receiver
 are cancelled before waiting for delivery; the message is not the mechanism
-that guarantees immediate silence. Its receiver checks session and increasing
-epoch. Both data channels are ordered and reliable.
+that guarantees immediate silence. Its receiver checks session and an increasing
+epoch that the session has already reached; an epoch from the future is
+ignored. Both data channels are ordered and reliable.
 
 ## Closed wire schemas
 
