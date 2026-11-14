@@ -17,7 +17,7 @@ export class HandoffProtocol {
     }
     async request(input, interruptedAudio = null) {
         const payload = this.controller.beginHandoff(input, interruptedAudio), lease = this.controller.lease();
-        this.timer = setTimeout(() => this.controller.expire(), 2000);
+        this.arm(2000);
         try {
             this.onPending(copy(payload));
             const digest = await this.hash(payload);
@@ -34,6 +34,14 @@ export class HandoffProtocol {
                 this.controller.fail('transport');
             return false;
         }
+    }
+    /** A timer may fire before the deadline clock reaches it; re-arm until expire() settles. */
+    arm(delay) {
+        this.timer = setTimeout(() => {
+            const left = this.controller.expire();
+            if (left > 0 && !this.disposed)
+                this.arm(Math.ceil(left));
+        }, delay);
     }
     async receiveSnapshot(bytes) {
         const m = validateMessage(decodeWire(bytes));
@@ -79,7 +87,9 @@ export class HandoffProtocol {
         const m = validateMessage(decodeWire(bytes));
         if (m.type !== 'interrupt')
             invalid();
-        if (m.session_id !== this.controller.getState().session_id || m.epoch <= this.lastInterruptEpoch)
+        const s = this.controller.getState();
+        // The sender raises the shared epoch before sending, so a larger epoch was never issued.
+        if (m.session_id !== s.session_id || m.epoch <= this.lastInterruptEpoch || m.epoch > s.epoch)
             return false;
         this.lastInterruptEpoch = m.epoch;
         this.onEvent('interrupt_received');

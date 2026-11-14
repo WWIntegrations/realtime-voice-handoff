@@ -240,10 +240,13 @@ test('protocol validates snapshots, copies context, and receives ACK without aut
     p.dispose();
 });
 test('interrupt message receiver is session scoped and monotonic', () => {
+    const { c } = ready();
     const p = new HandoffProtocol({
-        controller: ready().c, send: () => {
+        controller: c, send: () => {
         }
     });
+    c.interrupt('manual');
+    c.interrupt('manual');
     const m = {
         type: 'interrupt', schema_version: 1, session_id: SESSION, epoch: 1, turn_id: 0, reason: 'manual'
     };

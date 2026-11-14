@@ -15,6 +15,14 @@ export function createLabRuntime({ audioFactory = context => new AudioTracks(con
     let context = null, tracks = null, protocol = null, pairs = {}, master = null, connectPromise = null, connectTimer = null, rejectConnect = null;
     let volume = .8, sequence = 0, assetNumber = 0, record = null, recordToken = 0, lastRecordingId = null;
     const buffers = new Map(), listeners = new Set(), events = [], nodes = [], urls = new Set(), remoteMediaSinks = [];
+    // Imported and recorded clips are each up to ten seconds; keep only the most recent ones.
+    const LOCAL_AUDIO_LIMIT = 8, localIds = [];
+    function storeLocal(id, buffer) {
+        buffers.set(id, buffer);
+        localIds.push(id);
+        while (localIds.length > LOCAL_AUDIO_LIMIT)
+            buffers.delete(localIds.shift());
+    }
     const probes = Object.fromEntries(['mix', 'triage', 'specialist'].map(name => [name, {
             windows: [], rms: 0, waveform: Array(64).fill(0), lastEndTime: 0
         }]));
@@ -257,7 +265,7 @@ export function createLabRuntime({ audioFactory = context => new AudioTracks(con
         if (!context || ['closed', 'failed', 'connecting'].includes(controller.getState().state))
             invalid('busy');
         const parsed = parseWav(buffer), id = `local-audio-${++assetNumber}`;
-        buffers.set(id, audioBuffer(parsed.samples, parsed.sampleRate));
+        storeLocal(id, audioBuffer(parsed.samples, parsed.sampleRate));
         emit('audio_imported', {
             audioId: id, durationMs: parsed.durationMs
         });
@@ -297,7 +305,7 @@ export function createLabRuntime({ audioFactory = context => new AudioTracks(con
             offset += chunk.length;
         }
         const id = `recorded-audio-${++assetNumber}`;
-        buffers.set(id, audioBuffer(samples, 48000));
+        storeLocal(id, audioBuffer(samples, 48000));
         lastRecordingId = id;
         rec.resolve?.(id);
         emit('recording_stopped', {
@@ -370,10 +378,11 @@ export function createLabRuntime({ audioFactory = context => new AudioTracks(con
                 record = null;
                 disposeRecord(rec);
             }
+            const code = ['closed', 'unsupported_audio'].includes(error.message) ? error.message : 'permission_denied';
             emit('recording_error', {
-                code: error.message === 'unsupported_audio' ? 'unsupported_audio' : 'permission_denied'
+                code
             });
-            throw new Error(error.message === 'closed' ? 'closed' : error.message === 'unsupported_audio' ? 'unsupported_audio' : 'permission_denied');
+            throw new Error(code);
         }
     }
     function stopRecording() {
@@ -429,6 +438,7 @@ export function createLabRuntime({ audioFactory = context => new AudioTracks(con
         rejectConnect?.(new Error('closed'));
         await cleanup();
         buffers.clear();
+        localIds.length = 0;
     }
     function setVolume(value) {
         if (typeof value !== 'number' || !Number.isFinite(value) || value < 0 || value > 1)

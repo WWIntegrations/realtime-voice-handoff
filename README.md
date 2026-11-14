@@ -113,7 +113,8 @@ await lab.requestHandoff({
 `getState()` returns a copy. `getMetrics()` asynchronously returns measured
 PCM windows/waveforms, selected ICE pairs, RTP statistics, and bounded event
 history. `setVolume(0..1)` controls the final gain. `importWav(arrayBuffer)`
-returns a local audio ID accepted by `play`. `startRecording()` starts optional
+returns a local audio ID accepted by `play`. The eight most recent imported or
+recorded clips stay in memory; older IDs are released. `startRecording()` starts optional
 capture; `stopRecording()` resolves to an audio ID, or null if no samples were
 captured. An automatic recording stop also emits `recording_stopped` with the
 ID. `cancelRecording()` discards capture; `close()` releases media resources.
