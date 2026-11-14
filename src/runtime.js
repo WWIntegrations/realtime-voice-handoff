@@ -378,10 +378,11 @@ export function createLabRuntime({ audioFactory = context => new AudioTracks(con
                 record = null;
                 disposeRecord(rec);
             }
+            const code = ['closed', 'unsupported_audio'].includes(error.message) ? error.message : 'permission_denied';
             emit('recording_error', {
-                code: error.message === 'unsupported_audio' ? 'unsupported_audio' : 'permission_denied'
+                code
             });
-            throw new Error(error.message === 'closed' ? 'closed' : error.message === 'unsupported_audio' ? 'unsupported_audio' : 'permission_denied');
+            throw new Error(code);
         }
     }
     function stopRecording() {
