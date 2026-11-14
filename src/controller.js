@@ -142,9 +142,15 @@ export class VoiceController {
         this.emit();
         return true;
     }
+    /** Returns the milliseconds still left, or 0 once nothing is pending. */
     expire() {
-        if (this.value.pending && this.now() >= this.value.pending.deadline)
-            this.fail('timeout');
+        if (!this.value.pending)
+            return 0;
+        const left = this.value.pending.deadline - this.now();
+        if (left > 0)
+            return left;
+        this.fail('timeout');
+        return 0;
     }
     fail(code = 'transport') {
         if (['closed', 'failed'].includes(this.value.state))
